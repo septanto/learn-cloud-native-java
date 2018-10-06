@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: product
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,5 +1,6 @@
-package com.mycompany.product;
+package com.mycompany.petstore.product;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,7 +12,7 @@ import java.util.List;
 @RestController
 public class ProductService {
 
-    @RequestMapping("/product/{id}")
+    @GetMapping("/${env}/product/{id}")
     Product getProduct(@PathVariable("id") int id) {
         return new Product(id);
     }
