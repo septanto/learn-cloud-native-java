@@ -1,41 +1,24 @@
 package com.mycompany.petstore.product.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
-@Entity
+@Data
+@Document
 public class Product implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id = 1;
+    private String id;
+    private String name;
+    private int catId;
 
-    @Column(nullable = false)
-    private String name = "Oranges";
-
-    @Column(nullable = false)
-    private int catId = 2;
-
-    public Product(int id) {
+    public Product(String id) {
         this.id = id;
     }
 
     public Product() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCatId() {
-        return catId;
     }
 }

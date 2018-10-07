@@ -18,7 +18,7 @@ public class ProductService {
     ProductRepository prodRepo;
 
     @RequestMapping("/product/{id}")
-    Optional<Product> getProduct(@PathVariable("id") int id) {
+    Optional<Product> getProduct(@PathVariable("id") String id) {
         return prodRepo.findById(id);
     }
 

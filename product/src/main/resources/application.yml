@@ -1,6 +1,8 @@
 spring:
   application:
     name: product
+  data:
+    mongodb.database: masterdb
 
 management:
   endpoints:
@@ -9,16 +11,10 @@ management:
         include: "*"
 
 server:
-  port: 8082
+  port: 8085
 
 eureka:
   instance:
     leaseRenewalIntervalInSeconds: 5
 
 env: dev
-
-logging:
-  level:
-    org.hibernate:
-      tool.hbm2ddl: DEBUG
-      SQL: DEBUG
