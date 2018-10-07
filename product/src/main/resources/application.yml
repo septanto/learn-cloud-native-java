@@ -7,3 +7,12 @@ management:
     web:
       exposure:
         include: "*"
+
+server:
+  port: 8081
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+
+env: dev
