@@ -16,3 +16,9 @@ eureka:
     leaseRenewalIntervalInSeconds: 5
 
 env: dev
+
+logging:
+  level:
+    org.hibernate:
+      tool.hbm2ddl: DEBUG
+      SQL: DEBUG
