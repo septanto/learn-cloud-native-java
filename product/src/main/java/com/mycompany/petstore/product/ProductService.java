@@ -3,8 +3,12 @@ package com.mycompany.petstore.product;
 import com.mycompany.petstore.product.dao.ProductRepository;
 import com.mycompany.petstore.product.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,4 +30,12 @@ public class ProductService {
     List<Product> getProductsForCategory(@RequestParam("id") int id) {
         return prodRepo.findByCatId(id);
     }
+
+    @RequestMapping(value = "/product", method = RequestMethod.POST)
+    ResponseEntity<Product> insertProduct(@RequestBody Product product) {
+        Product savedProduct = prodRepo.save(product);
+        return new ResponseEntity<Product>(savedProduct, HttpStatus.OK);
+    }
+
+
 }

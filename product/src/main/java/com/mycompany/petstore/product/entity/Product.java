@@ -1,11 +1,14 @@
 package com.mycompany.petstore.product.entity;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Data
 @Entity
 public class Product {
 
@@ -26,15 +29,4 @@ public class Product {
     public Product() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCatId() {
-        return catId;
-    }
 }
