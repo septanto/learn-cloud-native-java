@@ -2,13 +2,11 @@ package com.mycompany.petstore.product.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.io.Serializable;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 @Data
-@Document
-public class Product implements Serializable {
+@Document(indexName = "product", type = "external")
+public class Product {
 
     @Id
     private String id;
