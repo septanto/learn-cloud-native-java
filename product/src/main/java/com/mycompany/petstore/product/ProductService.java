@@ -5,10 +5,12 @@ import com.mycompany.petstore.product.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,8 +24,8 @@ public class ProductService {
     ProductRepository prodRepo;
 
     @RequestMapping("/product/{id}")
-    Optional<Product> getProduct(@PathVariable("id") int id) {
-        return prodRepo.findById(id);
+    Product getProduct(@PathVariable("id") int id) {
+        return prodRepo.findById(id).orElse(null);
     }
 
     @RequestMapping("/products")
@@ -31,11 +33,27 @@ public class ProductService {
         return prodRepo.findByCatId(id);
     }
 
-    @RequestMapping(value = "/product", method = RequestMethod.POST)
+    @PostMapping(value = "/product")
     ResponseEntity<Product> insertProduct(@RequestBody Product product) {
         Product savedProduct = prodRepo.save(product);
-        return new ResponseEntity<Product>(savedProduct, HttpStatus.OK);
+        return new ResponseEntity<>(savedProduct, HttpStatus.OK);
     }
 
+    @PutMapping(value="/product/{id}")
+    ResponseEntity<Product> updateProduct(@PathVariable("id") int id, @RequestBody Product product) {
+        Product existingProduct = prodRepo.findById(id).orElseThrow(NullPointerException::new);
+
+        existingProduct.setCatId(product.getCatId());
+        existingProduct.setName(product.getName());
+        Product savedProduct = prodRepo.save(existingProduct);
+
+        return new ResponseEntity<>(savedProduct, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/product/{id}")
+    ResponseEntity<Product> deleteProduct(@PathVariable("id") int id) {
+        prodRepo.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
