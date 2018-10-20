@@ -2,6 +2,7 @@ package com.mycompany.petstore.product;
 
 import com.mycompany.petstore.product.dao.ProductRepository;
 import com.mycompany.petstore.product.entity.Product;
+import com.mycompany.petstore.product.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,9 +51,17 @@ public class ProductService {
     }
 
     @DeleteMapping(value = "/product/{id}")
-    ResponseEntity<Product> deleteProduct(@PathVariable("id") int id) {
-        prodRepo.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    Product deleteProduct(@PathVariable("id") int id) {
+
+        // fetch existing product then delete it
+        Product existingProduct = prodRepo.findById(id).orElse(null);
+        if (existingProduct == null) {
+            String errMsg = "Product Not Found with code " + id;
+            throw new BadRequestException(BadRequestException.ID_NOT_FOUND, errMsg);
+        }
+        // Return the deleted product
+        prodRepo.delete(existingProduct);
+        return existingProduct;
     }
 
 }
