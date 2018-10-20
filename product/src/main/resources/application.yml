@@ -3,6 +3,10 @@ spring:
     name: product
   data:
     mongodb.database: masterdb
+  activemq:
+    broker-url: tcp://localhost:61616
+  jms:
+    pub-sub-domain: true
 
 management:
   endpoints:
@@ -17,4 +21,5 @@ eureka:
   instance:
     leaseRenewalIntervalInSeconds: 5
 
-env: dev
+jms:
+  ProductTopic: ProductT
