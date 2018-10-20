@@ -1,11 +1,15 @@
 spring:
   application:
     name: product
+  activemq:
+    broker-url: tcp://localhost:61616
   data:
     elasticsearch:
       repositories.enabled: true
       cluster-name: elasticsearch_siprianus
       cluster-nodes: localhost:9300
+  jms:
+    pub-sub-domain: true
 
 management:
   endpoints:
@@ -14,10 +18,13 @@ management:
         include: "*"
 
 server:
-  port: 8085
+  port: 8086
 
 eureka:
   instance:
     leaseRenewalIntervalInSeconds: 5
 
 env: dev
+
+jms:
+  ProductTopic: ProductT
